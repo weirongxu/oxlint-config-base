@@ -8,6 +8,9 @@
   ],
   "type": "module",
   "main": "./dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "pnpm run test:types && pnpm run test:lint && pnpm run test:unit",
     "test:types": "tsc --noEmit",
