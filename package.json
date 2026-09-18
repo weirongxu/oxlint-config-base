@@ -1,0 +1,46 @@
+{
+  "name": "@raidou/oxlint-config-base",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "git@github.com:weirongxu/oxlint-config-base.git",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "pnpm run test:types && pnpm run test:lint && pnpm run test:unit",
+    "test:types": "tsc --noEmit",
+    "test:lint": "oxfmt --check . && oxlint",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "pretest": "pnpm run build",
+    "eject:rules": "tsx scripts/eject-rules.ts && oxfmt --write \"rules/*.json\"",
+    "prebuild": "pnpm run eject:rules",
+    "build": "tsc -p tsconfig.build.json",
+    "prepublish": "pnpm run build",
+    "format": "oxfmt --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.3",
+    "dedent": "^1.7.2",
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0",
+    "oxlint-tsgolint": "^7.0.2001",
+    "tsx": "^4.23.13",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.1",
+    "zod": "^4.6.5"
+  },
+  "peerDependencies": {
+    "oxfmt": "*",
+    "oxlint": "*",
+    "oxlint-tsgolint": "*"
+  },
+  "optionalDependencies": {
+    "zod": "^4.6.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

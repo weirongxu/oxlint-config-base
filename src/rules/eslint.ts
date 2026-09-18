@@ -1,0 +1,86 @@
+import type { DummyRuleMap } from 'oxlint'
+
+export const eslintRules: DummyRuleMap = {
+  // ESLint core rules
+  'for-direction': 'error',
+  'guard-for-in': 'error',
+  'no-async-promise-executor': 'error',
+  'no-case-declarations': 'error',
+  'no-compare-neg-zero': 'error',
+  'no-cond-assign': 'error',
+  'no-console': ['warn', { allow: ['assert', 'warn', 'error'] }],
+  'no-constant-binary-expression': 'error',
+  'no-constant-condition': 'error',
+  'no-control-regex': 'error',
+  'no-debugger': 'error',
+  'no-delete-var': 'error',
+  'no-dupe-else-if': 'error',
+  'no-duplicate-case': 'error',
+  'no-empty': 'error',
+  'no-empty-character-class': 'error',
+  'no-empty-pattern': 'error',
+  'no-empty-static-block': 'error',
+  'no-ex-assign': 'error',
+  'no-extra-boolean-cast': 'error',
+  'no-fallthrough': 'error',
+  'no-global-assign': 'error',
+  'no-invalid-regexp': 'error',
+  'no-irregular-whitespace': 'error',
+  'no-loss-of-precision': 'error',
+  'no-misleading-character-class': 'error',
+  'no-nonoctal-decimal-escape': 'error',
+  // `no-octal` does not exist in oxlint and is skipped.
+  'no-prototype-builtins': 'error',
+  'no-regex-spaces': 'error',
+  'no-self-assign': 'error',
+  'no-shadow-restricted-names': 'error',
+  'no-sparse-arrays': 'error',
+  'no-unassigned-vars': 'error',
+  'no-unsafe-finally': 'error',
+  'no-unsafe-optional-chaining': 'error',
+  'no-unused-labels': 'error',
+  'no-unused-private-class-members': 'error',
+  'no-useless-assignment': 'error',
+  'no-useless-backreference': 'error',
+  'no-useless-catch': 'error',
+  'no-useless-escape': 'error',
+  'no-useless-rename': 'error',
+  'no-useless-return': 'error',
+  'no-var': 'error',
+  // One declaration per statement keeps blame and diffs scoped to a single
+  // variable.
+  'one-var': ['error', 'never'],
+  'object-shorthand': 'error',
+  'prefer-const': 'error',
+  'prefer-rest-params': 'error',
+  'prefer-spread': 'error',
+  'prefer-template': 'error',
+  'preserve-caught-error': 'error',
+  'require-yield': 'error',
+  // Approximation of `simple-import-sort/imports` documented by oxlint
+  // (`simple-import-sort/exports` has no equivalent and is dropped;
+  // `prettier/prettier` is dropped because formatting is owned by oxfmt).
+  'sort-imports': 'error',
+  'use-isnan': 'error',
+  'valid-typeof': 'error',
+
+  // --- Correctness-category rules explicitly disabled ---
+  // Base eslint rules that the source preset turns off for TypeScript files
+  // because the TypeScript compiler / typescript-eslint equivalents cover
+  // them (see the ejected ts-rules.json, the source of truth).
+  'constructor-super': 'off',
+  'getter-return': 'off',
+  'no-class-assign': 'off',
+  'no-const-assign': 'off',
+  'no-dupe-class-members': 'off',
+  'no-dupe-keys': 'off',
+  'no-func-assign': 'off',
+  'no-import-assign': 'off',
+  'no-new-native-nonconstructor': 'off',
+  'no-obj-calls': 'off',
+  'no-setter-return': 'off',
+  'no-this-before-super': 'off',
+  'no-unreachable': 'off',
+  'no-unsafe-negation': 'off',
+  'no-with': 'off',
+}
