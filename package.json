@@ -36,9 +36,9 @@
     "zod": "^4.6.5"
   },
   "peerDependencies": {
-    "oxfmt": "*",
-    "oxlint": "*",
-    "oxlint-tsgolint": "*"
+    "oxfmt": "^0.68.0",
+    "oxlint": "^1.83.0",
+    "oxlint-tsgolint": "^7.0.2001"
   },
   "optionalDependencies": {
     "zod": "^4.6.5"

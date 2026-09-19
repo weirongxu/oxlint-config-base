@@ -3,10 +3,14 @@
 ## Install
 
 ```
-npm install @raidou/oxlint-config-base oxlint oxlint-tsgolint oxfmt
+npm install -D @raidou/oxlint-config-base
 ```
 
+`oxlint`, `oxlint-tsgolint` and `oxfmt` are declared as peer dependencies and installed automatically by npm 7+.
+
 ## Usage
+
+### oxlint
 
 oxlint.config.ts
 
@@ -19,4 +23,15 @@ export default defineConfig({
     ignorePatterns: ['dist/**', 'node_modules/**'],
     extends: [config],
 })
+```
+
+### oxfmt
+
+oxfmt.config.ts
+
+```typescript
+import { defineConfig } from 'oxfmt'
+import { fmtconfig } from '@raidou/oxlint-config-base'
+
+export default defineConfig(fmtconfig)
 ```
