@@ -3,10 +3,10 @@
 ## Install
 
 ```
-npm install -D @raidou/oxlint-config-base
+npm install -D @raidou/oxlint-config-base oxlint oxlint-tsgolint oxfmt
 ```
 
-`oxlint`, `oxlint-tsgolint` and `oxfmt` are declared as peer dependencies and installed automatically by npm 7+.
+`oxlint-tsgolint` are declared as peer dependencies and installed automatically by npm 7+.
 
 ## Usage
 
