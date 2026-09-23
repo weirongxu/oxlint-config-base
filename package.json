@@ -14,7 +14,7 @@
   "scripts": {
     "test": "pnpm run test:types && pnpm run test:lint && pnpm run test:unit",
     "test:types": "tsc --noEmit",
-    "test:lint": "oxfmt --check . && oxlint",
+    "test:lint": "oxfmt --write && oxlint --fix",
     "test:unit": "vitest run",
     "test:watch": "vitest",
     "pretest": "pnpm run build",

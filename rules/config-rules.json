@@ -132,7 +132,6 @@
     "react/void-dom-elements-no-children": "deny",
     "react/void-use-memo": "deny",
     "require-yield": "error",
-    "sort-imports": "error",
     "typescript/await-thenable": "error",
     "typescript/ban-ts-comment": [
       "error",

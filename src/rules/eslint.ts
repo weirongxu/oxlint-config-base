@@ -57,10 +57,6 @@ export const eslintRules: DummyRuleMap = {
   'prefer-template': 'error',
   'preserve-caught-error': 'error',
   'require-yield': 'error',
-  // Approximation of `simple-import-sort/imports` documented by oxlint
-  // (`simple-import-sort/exports` has no equivalent and is dropped;
-  // `prettier/prettier` is dropped because formatting is owned by oxfmt).
-  'sort-imports': 'error',
   'use-isnan': 'error',
   'valid-typeof': 'error',
 

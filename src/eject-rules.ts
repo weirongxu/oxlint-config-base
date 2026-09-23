@@ -1,9 +1,10 @@
-import type { DummyRule, OxlintConfig } from 'oxlint'
+import { execFile } from 'node:child_process'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
-import { execFile } from 'node:child_process'
 import path from 'node:path'
 import { promisify } from 'node:util'
+
+import type { DummyRule, OxlintConfig } from 'oxlint'
 import { z } from 'zod'
 
 const severitySchema = z.enum(['error', 'warn', 'off', 'deny', 'allow'])

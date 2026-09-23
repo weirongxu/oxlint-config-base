@@ -1,5 +1,5 @@
-import { config } from '../src/index.ts'
 import { ejectRules } from '../src/eject-rules.ts'
+import { config } from '../src/index.ts'
 
 const main = async (): Promise<void> => {
   await ejectRules(config, 'rules/config-rules')

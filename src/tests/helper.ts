@@ -1,8 +1,9 @@
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
-import { config as baseConfig } from '../index.ts'
-import path from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
+import path from 'node:path'
+
+import { config as baseConfig } from '../index.ts'
 
 const nodeModulesBin = path.resolve(
   import.meta.dirname,

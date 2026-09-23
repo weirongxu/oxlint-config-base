@@ -1,9 +1,11 @@
-import { describe, expect, it } from 'vitest'
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs'
-import { config } from './index.ts'
-import { ejectRules } from './eject-rules.ts'
-import path from 'node:path'
 import { tmpdir } from 'node:os'
+import path from 'node:path'
+
+import { describe, expect, it } from 'vitest'
+
+import { ejectRules } from './eject-rules.ts'
+import { config } from './index.ts'
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value)

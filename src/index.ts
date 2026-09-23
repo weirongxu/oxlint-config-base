@@ -1,5 +1,6 @@
-import { type OxlintConfig, defineConfig } from 'oxlint'
 import type { FormatConfig } from 'oxfmt'
+import { type OxlintConfig, defineConfig } from 'oxlint'
+
 import { eslintRules } from './rules/eslint.ts'
 import { reactRules } from './rules/react.ts'
 import { typescriptRules } from './rules/typescript.ts'
@@ -18,6 +19,7 @@ export const config: OxlintConfig = defineConfig({
 })
 
 export const fmtconfig: FormatConfig = {
+  sortImports: true,
   printWidth: 80,
   semi: false,
   singleQuote: true,

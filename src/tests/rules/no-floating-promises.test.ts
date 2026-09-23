@@ -1,6 +1,7 @@
 import '../setup.ts'
-import { describe, expect, it } from 'vitest'
 import dedent from 'dedent'
+import { describe, expect, it } from 'vitest'
+
 import { lintHelper } from '../helper.ts'
 
 describe('no-floating-promises', () => {

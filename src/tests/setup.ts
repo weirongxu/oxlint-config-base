@@ -1,5 +1,6 @@
-import type { LintResult } from './helper.ts'
 import { expect } from 'vitest'
+
+import type { LintResult } from './helper.ts'
 
 type CustomMatchers = {
   toRuleCount: (count: number, options: { rule: string }) => void
