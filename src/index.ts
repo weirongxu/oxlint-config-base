@@ -1,5 +1,6 @@
 import type { FormatConfig } from 'oxfmt'
 import { type OxlintConfig, defineConfig } from 'oxlint'
+import tailwindcssConfig from 'oxlint-tailwindcss/config'
 
 import { eslintRules } from './rules/eslint.ts'
 import { reactRules } from './rules/react.ts'
@@ -25,6 +26,16 @@ export const fmtconfig: FormatConfig = {
   singleQuote: true,
   trailingComma: 'all',
 }
+
+export const tailwindcss = ({
+  entryPoint,
+}: {
+  entryPoint: string
+}): OxlintConfig =>
+  defineConfig({
+    extends: [tailwindcssConfig()],
+    settings: { tailwindcss: { entryPoint } },
+  })
 
 export type { FormatConfig } from 'oxfmt'
 export type { OxlintConfig } from 'oxlint'
