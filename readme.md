@@ -3,10 +3,8 @@
 ## Install
 
 ```
-npm install -D @raidou/oxlint-config-base oxlint oxlint-tsgolint oxfmt
+npm install -D @raidou/oxlint-config-base oxlint oxfmt
 ```
-
-`oxlint-tsgolint` are declared as peer dependencies and installed automatically by npm 7+.
 
 ## Usage
 
@@ -27,8 +25,6 @@ export default defineConfig({
 
 ### Tailwind CSS
 
-Requires a Tailwind CSS v4 project (the plugin itself depends on `tailwindcss ^4.3.3`) and oxlint >= 1.43. `oxlint-tailwindcss` is a mandatory peer dependency installed automatically by npm 7+ / pnpm 8+.
-
 oxlint.config.ts
 
 ```typescript
@@ -37,12 +33,10 @@ import { defineConfig } from 'oxlint'
 
 export default defineConfig({
     env: { builtin: true, node: true },
-    extends: [config],
-    ...tailwindcss({ entryPoint: 'src/styles.css' }),
+    settings: { tailwindcss: { entryPoint: 'src/styles.css' } },
+    extends: [config, tailwindcss()],
 })
 ```
-
-`entryPoint` must point to the CSS file containing `@import "tailwindcss"`. The settings are passed top-level because configs referenced via `extends` don't inherit `settings`.
 
 ### oxfmt
 

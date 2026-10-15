@@ -27,14 +27,10 @@ export const fmtconfig: FormatConfig = {
   trailingComma: 'all',
 }
 
-export const tailwindcss = ({
-  entryPoint,
-}: {
-  entryPoint: string
-}): OxlintConfig =>
+export const tailwindcss = (): OxlintConfig =>
   defineConfig({
     extends: [tailwindcssConfig()],
-    settings: { tailwindcss: { entryPoint } },
+    rules: { 'tailwindcss/no-unknown-classes': 'off' },
   })
 
 export type { FormatConfig } from 'oxfmt'
