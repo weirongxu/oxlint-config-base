@@ -3,6 +3,7 @@ import { type OxlintConfig, defineConfig } from 'oxlint'
 import tailwindcssConfig from 'oxlint-tailwindcss/config'
 
 import { eslintRules } from './rules/eslint.ts'
+import { reactCompilerRules } from './rules/react-compiler.ts'
 import { reactRules } from './rules/react.ts'
 import { typescriptRules } from './rules/typescript.ts'
 
@@ -26,6 +27,11 @@ export const fmtconfig: FormatConfig = {
   singleQuote: true,
   trailingComma: 'all',
 }
+
+export const reactCompiler = (): OxlintConfig =>
+  defineConfig({
+    rules: { ...reactCompilerRules },
+  })
 
 export const tailwindcss = (): OxlintConfig =>
   defineConfig({

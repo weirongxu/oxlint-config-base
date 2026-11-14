@@ -3,7 +3,7 @@ import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 
-import { config as baseConfig } from '../index.ts'
+import { type OxlintConfig, config as baseConfig } from '../index.ts'
 
 const nodeModulesBin = path.resolve(
   import.meta.dirname,
@@ -57,21 +57,25 @@ function parseRules(stdout: string): readonly string[] {
 export const lintHelper = {
   fromContent(
     content: string,
-    { filename }: Readonly<{ filename?: string }> = {},
+    {
+      config = baseConfig,
+      filename,
+    }: Readonly<{ config?: OxlintConfig; filename?: string }> = {},
   ): LintResult {
     const dir = mkdtempSync(path.join(tmpdir(), 'oxlint-test-'))
     try {
       const resolvedFilename = filename ?? 'test.tsx'
       const snippet = content.endsWith('\n') ? content : `${content}\n`
       writeFileSync(path.join(dir, resolvedFilename), snippet)
+      const configFile = 'oxlint.config.ts'
       writeFileSync(
-        path.join(dir, '.oxlintrc.json'),
-        JSON.stringify(baseConfig),
+        path.join(dir, configFile),
+        `export default ${JSON.stringify(config)}\n`,
       )
 
       const result = spawnSync(
         path.join(nodeModulesBin, 'oxlint'),
-        ['--config', '.oxlintrc.json', '--format', 'json', resolvedFilename],
+        ['--config', configFile, '--format', 'json', resolvedFilename],
         { cwd: dir, encoding: 'utf8' },
       )
       // Exit code 0 = clean, 1 = diagnostics found; anything else is a crash.
