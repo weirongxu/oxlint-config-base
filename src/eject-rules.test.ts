@@ -4,7 +4,7 @@ import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-import { ejectRules } from './eject-rules.ts'
+import { ejectModeRules, ejectRules } from './eject-rules.ts'
 import { config } from './index.ts'
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -124,7 +124,10 @@ describe('ejectRules output paths', () => {
         {
           plugins: ['eslint'],
           options: { typeAware: true },
-          rules: { 'guard-for-in': 'error', 'react/exhaustive-deps': 'error' },
+          rules: {
+            'guard-for-in': 'error',
+            'react/exhaustive-deps': 'error',
+          },
         },
         outputPath,
       )
@@ -157,6 +160,39 @@ describe('ejectRules output paths', () => {
       expect(getRules(readJson(`${outputPath}.json`))['guard-for-in']).toBe(
         'error',
       )
+    })
+  })
+})
+
+describe('ejectModeRules', () => {
+  it('contains only the fragment rules, sorted, with undefined values dropped', async () => {
+    await withTempDir(async (dir) => {
+      const outputPath = path.join(dir, 'rules')
+      await ejectModeRules([
+        {
+          rules: {
+            'no-var': 'error',
+            'guard-for-in': undefined,
+            'no-console': 'warn',
+          },
+        },
+        outputPath,
+      ])
+      expect(getRules(readJson(`${outputPath}.json`))).toEqual({
+        'no-console': 'warn',
+        'no-var': 'error',
+      })
+    })
+  })
+
+  it('keeps empty plugins and omits options for rule-only fragments', async () => {
+    await withTempDir(async (dir) => {
+      const outputPath = path.join(dir, 'rules')
+      await ejectModeRules([{ rules: { 'react/refs': 'error' } }, outputPath])
+      const ejected = readJson(`${outputPath}.json`)
+      expect(ejected.plugins).toEqual([])
+      expect(ejected).not.toHaveProperty('options')
+      expect(getRules(ejected)).toEqual({ 'react/refs': 'error' })
     })
   })
 })

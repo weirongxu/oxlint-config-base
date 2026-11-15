@@ -38,6 +38,20 @@ export default defineConfig({
 })
 ```
 
+### React Compiler
+
+oxlint.config.ts
+
+```typescript
+import { config, reactCompiler } from '@raidou/oxlint-config-base'
+import { defineConfig } from 'oxlint'
+
+export default defineConfig({
+    env: { builtin: true, node: true },
+    extends: [config, reactCompiler()],
+})
+```
+
 ### oxfmt
 
 oxfmt.config.ts

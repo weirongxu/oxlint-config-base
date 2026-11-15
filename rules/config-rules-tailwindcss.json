@@ -1,0 +1,6 @@
+{
+  "plugins": [],
+  "rules": {
+    "tailwindcss/no-unknown-classes": "off"
+  }
+}

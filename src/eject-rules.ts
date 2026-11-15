@@ -4,7 +4,7 @@ import { createRequire } from 'node:module'
 import path from 'node:path'
 import { promisify } from 'node:util'
 
-import type { DummyRule, OxlintConfig } from 'oxlint'
+import type { DummyRule, DummyRuleMap, OxlintConfig } from 'oxlint'
 import { z } from 'zod'
 
 const severitySchema = z.enum(['error', 'warn', 'off', 'deny', 'allow'])
@@ -17,6 +17,8 @@ type EjectedConfig = {
   options: OxlintConfig['options']
   rules: Record<string, DummyRule>
 }
+
+type PrintedRules = z.infer<typeof printedConfigSchema>['rules']
 
 const RULE_URL_BASE = 'https://oxc.rs/docs/guide/usage/linter/rules'
 const execFileAsync = promisify(execFile)
@@ -34,9 +36,7 @@ function getRuleUrl(ruleName: string): string {
     : `${RULE_URL_BASE}/${plugin}/${rule}.html`
 }
 
-function sortRules(
-  rules: Record<string, DummyRule>,
-): Record<string, DummyRule> {
+function sortRules(rules: DummyRuleMap): Record<string, DummyRule> {
   const sorted: Record<string, DummyRule> = {}
   for (const name of Object.keys(rules).sort()) {
     const rule = rules[name]
@@ -72,6 +72,21 @@ async function saveTo(
   ])
 }
 
+const ejectConfig = (
+  config: OxlintConfig,
+  printedRules: PrintedRules,
+): EjectedConfig => {
+  // NOTE: the printed output renames severities and flattens option tuples;
+  // overlay the source rules to restore the original spellings and payloads.
+  const rules: Record<string, DummyRule> = { ...printedRules }
+  Object.assign(rules, config.rules)
+  return {
+    plugins: config.plugins ?? [],
+    options: config.options,
+    rules: sortRules(rules),
+  }
+}
+
 export const ejectRules = async (
   config: OxlintConfig,
   outputPath: string,
@@ -81,14 +96,19 @@ export const ejectRules = async (
     encoding: 'utf8',
   })
   const printed = printedConfigSchema.parse(JSON.parse(stdout))
-  // NOTE: the printed output renames severities and flattens option tuples;
-  // overlay the source rules to restore the original spellings and payloads.
-  Object.assign(printed.rules, config.rules)
-  const ejectedConfig: EjectedConfig = {
-    plugins: config.plugins ?? [],
-    options: config.options,
-    rules: sortRules(printed.rules),
-  }
+  await saveTo(outputPath, ejectConfig(config, printed.rules))
+}
 
-  await saveTo(outputPath, ejectedConfig)
+export const ejectModeRules = async (
+  ...entries: readonly (readonly [OxlintConfig, string])[]
+): Promise<void> => {
+  await Promise.all(
+    entries.map(([config, outputPath]) =>
+      saveTo(outputPath, {
+        plugins: config.plugins ?? [],
+        options: config.options,
+        rules: sortRules(config.rules ?? {}),
+      }),
+    ),
+  )
 }
